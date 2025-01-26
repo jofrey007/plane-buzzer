@@ -3,8 +3,8 @@
 #include <avr/sleep.h>
 #include <util/delay.h>
 
-#define BUZZER_PIN 0      // PA6
-#define TRIGGER_PIN 2     // PA1
+#define BUZZER_PIN 0      // PA6, socket pin 2
+#define TRIGGER_PIN 2     // PA1, socket pin 4
 
 volatile bool shouldBeep = false;   // Príznak či má pípať
 volatile uint8_t beepState = 0;     // 0 = ticho, 1 = pípanie
