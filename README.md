@@ -25,3 +25,6 @@ Pôvodnú anténu odpájkovať a nahradiť rovnako dlhým vodičom [30AWG](https
 ### Nabíjanie akumulátora
 Akumulátor sa musí nabíjať malým prúdom okolo 5-10mA, z toho dôvodu je potrebné upraviť nabíjač s MCP73831. Úprava spočíva vo výmene SMD odporu za odpor s hodnotou 68k.
 [nabíjačka](https://github.com/jofrey007/plane-buzzer/blob/main/hardware/charger.jpg)
+
+## Galéria fotiek
+[Google photos](https://photos.app.goo.gl/KZA55k8EkyTrNWjo8)
