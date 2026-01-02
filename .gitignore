@@ -1,0 +1,10 @@
+# Binárne súbory z kompilácie
+*.elf
+*.hex
+*.bin
+*.o
+
+# Zálohy editora
+*~
+*.bak
+*.swp
