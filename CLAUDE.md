@@ -15,19 +15,34 @@ Determalizátor a bzučiak pre voľné modely lietadiel. Mechanizmus uvoľnenia 
 - **PCB**: Vlastná doska navrhnutá v Eagle (súbory v `hardware/`)
 - **Komponenty**: Zoznam súčiastok s odkazmi na dodávateľov v `BOM/bom.txt`
 
-## Programovanie ATtiny402
+## Kompilácia a programovanie
 
-Použite Arduino IDE s UPDI programovaním cez iné Arduino (napr. Uno). Referenčné video: https://www.youtube.com/watch?v=YOGeoW_QySs
+### Požiadavky
+- megaTinyCore toolchain (arduino-cli)
+- Arduino Uno s jtag2updi firmvérom ako programátor
 
-Nahrajte `plane-buzzer.ino` do MCU.
+### Kompilácia
+```bash
+make          # skompilovať plane-buzzer.c
+make clean    # vymazať binárne súbory
+make size     # zobraziť využitie pamäte
+```
+
+### Programovanie ATtiny402
+```bash
+./flash.sh    # naprogramovať cez jtag2updi (Arduino Uno na /dev/ttyUSB0)
+```
+
+Alternatívne použite Arduino IDE s UPDI programovaním. Referenčné video: https://www.youtube.com/watch?v=YOGeoW_QySs
 
 ## Architektúra kódu
 
-Firmvér (`plane-buzzer.ino`) je riadený prerušeniami s hlbokým spánkom pre úsporu energie:
+Firmvér (`plane-buzzer.c`) je riadený prerušeniami s hlbokým spánkom pre úsporu energie:
 
 - **Konfigurácia pinov**: PA6 (pin 0) pre výstup bzučiaka, PA1 (pin 2) pre vstup triggera
 - **RTC**: Používa interný 32kHz oscilátor s PIT (Periodic Interrupt Timer) pre 1-sekundové intervaly
-- **Správa napájania**: Vypína nepoužívané periférie (TCA0, ADC, USART, TWI, SPI) a používa režim spánku POWER_DOWN
+- **Správa napájania**: Vypína nepoužívané periférie (TCA0, ADC, USART, TWI, SPI, AC0) a používa režim spánku POWER_DOWN
+- **Optimalizácie**: BOD v sampled móde, vypnuté vstupné buffery, pull-up na trigger pine
 - **Vzor pípania**: Pri spustení (zostupná hrana na PA1) pípne 1 sekundu, potom 10 sekúnd ticho, opakuje sa
 
 ## Úprava nabíjačky batérie
